@@ -207,21 +207,19 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" move block up/down in visual and normal mode"
+" Normal mode
+nnoremap <C-n> :m .+1<CR>==
+nnoremap <C-m> :m .-2<CR>==
+
+" Visual mode
+vnoremap <C-n> :m '>+1<CR>gv=gv
+vnoremap <C-m> :m '<-2<CR>gv=gv
 
 
   ]])
 
 ---- uncomment these and move to vim.cmd
-
--- " move block up/down in visual and normal mode"
--- " Normal mode
--- nnoremap <C-j> :m .+1<CR>==
--- nnoremap <C-k> :m .-2<CR>==
-
--- " Visual mode
--- vnoremap <C-j> :m '>+1<CR>gv=gv
--- vnoremap <C-k> :m '<-2<CR>gv=gv
-
 
 -- nnoremap <silent> <S-l> w
 -- nnoremap <silent> <S-h> b

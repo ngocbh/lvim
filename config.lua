@@ -98,7 +98,48 @@ lvim.lsp.automatic_servers_installation = false
 ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
-local opts = {} -- check the lspconfig documentation for a list of all possible options
+local opts = {
+    root_dir = function(fname)
+    local util = require "lspconfig.util"
+    local root_files = {
+      "pyproject.toml",
+      "setup.py",
+      "setup.cfg",
+      "requirements.txt",
+      "Pipfile",
+      "manage.py",
+      "pyrightconfig.json",
+    }
+    return util.root_pattern(unpack(root_files))(fname) or util.root_pattern ".git" (fname) or util.path.dirname(fname)
+  end,
+  settings = {
+    pyright = {
+      disableLanguageServices = false,
+      disableOrganizeImports = false,
+    },
+    python = {
+      venvPath = "$env",
+      pythonPath = "env/bin/python",
+      analysis = {
+        -- not sure if this is the right place for `exclude` or not tbh
+        exclude = {
+        },
+        autoSearchPaths = true,
+        extraPaths = "src",
+        diagnosticMode = "workspace",
+        useLibraryCodeForTypes = true,
+      },
+    },
+  },
+  single_file_support = true,
+} -- check the lspconfig documentation for a list of all possible options
+
+local servers = require "nvim-lsp-installer.servers"
+local server_available, requested_server = servers.get_server "pyright"
+if server_available then
+  opts.cmd_env = requested_server:get_default_options().cmd_env
+end
+
 require("lvim.lsp.manager").setup("pyright", opts)
 
 ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!

@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = false
-lvim.colorscheme = "tokyonight"
+lvim.colorscheme = "onedark"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -70,6 +70,7 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+lvim.builtin.nvimtree.setup.view.mappings.list = {{key = '<C-t>', cb=":ToggleTerm<cr>"}}
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -98,48 +99,7 @@ lvim.lsp.automatic_servers_installation = false
 ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
 vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
-local opts = {
-    root_dir = function(fname)
-    local util = require "lspconfig.util"
-    local root_files = {
-      "pyproject.toml",
-      "setup.py",
-      "setup.cfg",
-      "requirements.txt",
-      "Pipfile",
-      "manage.py",
-      "pyrightconfig.json",
-    }
-    return util.root_pattern(unpack(root_files))(fname) or util.root_pattern ".git" (fname) or util.path.dirname(fname)
-  end,
-  settings = {
-    pyright = {
-      disableLanguageServices = false,
-      disableOrganizeImports = false,
-    },
-    python = {
-      venvPath = "$env",
-      pythonPath = "env/bin/python",
-      analysis = {
-        -- not sure if this is the right place for `exclude` or not tbh
-        exclude = {
-        },
-        autoSearchPaths = true,
-        extraPaths = "src",
-        diagnosticMode = "workspace",
-        useLibraryCodeForTypes = true,
-      },
-    },
-  },
-  single_file_support = true,
-} -- check the lspconfig documentation for a list of all possible options
-
-local servers = require "nvim-lsp-installer.servers"
-local server_available, requested_server = servers.get_server "pyright"
-if server_available then
-  opts.cmd_env = requested_server:get_default_options().cmd_env
-end
-
+local opts = {} -- check the lspconfig documentation for a list of all possible options
 require("lvim.lsp.manager").setup("pyright", opts)
 
 ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
@@ -198,6 +158,9 @@ lvim.plugins = {
   { "lunarvim/colorschemes" },
   { "folke/tokyonight.nvim" },
   { "arcticicestudio/nord-vim" },
+  -- { "yioneko/nvim-yati", requires = "nvim-treesitter/nvim-treesitter" },
+  { "tpope/vim-sleuth"},
+  { "lukas-reineke/indent-blankline.nvim"},
   {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
@@ -219,10 +182,14 @@ lvim.plugins = {
 -- })
 
 --- ngocbh settings
+
+-- disable indent yaml since it's broken
+-- lvim.builtin.treesitter.indent = { enable = true, disable= {"python"}}
+lvim.builtin.treesitter.indent = { enable = true }
+-- lvim.builtin.treesitter.indent = { disable = true}
+-- lvim.builtin.treesitter.yati = {enable = true}
 vim.cmd([[
 let g:airline_powerline_fonts = 1
-
-set cindent
 
 let g:tex_flavor = 'latex'
 
@@ -254,4 +221,5 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
   ]])

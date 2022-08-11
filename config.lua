@@ -161,6 +161,7 @@ lvim.plugins = {
   { "folke/tokyonight.nvim" },
   { "arcticicestudio/nord-vim" },
   -- { "yioneko/nvim-yati", requires = "nvim-treesitter/nvim-treesitter" },
+  { "Vimjas/vim-python-pep8-indent" },
   { "tpope/vim-sleuth"},
   { "lukas-reineke/indent-blankline.nvim"},
   {
@@ -186,10 +187,11 @@ lvim.plugins = {
 --- ngocbh settings
 
 -- disable indent yaml since it's broken
--- lvim.builtin.treesitter.indent = { enable = true, disable= {"python"}}
-lvim.builtin.treesitter.indent = { enable = true }
+lvim.builtin.treesitter.indent = { enable = true, disable= {"python"}}
+-- lvim.builtin.treesitter.indent = { enable = true }
 -- lvim.builtin.treesitter.indent = { disable = true}
 -- lvim.builtin.treesitter.yati = {enable = true}
+
 vim.cmd([[
 let g:airline_powerline_fonts = 1
 

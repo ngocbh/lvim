@@ -135,6 +135,8 @@ formatters.setup {
   },
 }
 
+lvim.lsp.null_ls.setup.timeout_ms = 5000
+
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {

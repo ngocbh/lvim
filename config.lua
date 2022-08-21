@@ -108,6 +108,9 @@ vim.tbl_map(function(server)
   return server ~= "emmet_ls"
 end, lvim.lsp.automatic_configuration.skipped_servers)
 
+--- remap copy to system clipboard
+vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
+
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
 lvim.lsp.on_attach_callback = function(client, bufnr)

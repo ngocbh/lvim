@@ -143,13 +143,13 @@ lvim.lsp.null_ls.setup.timeout_ms = 5000
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { command = "flake8", filetypes = { "python" } },
+  { command = "flake8", filetypes = { "python" }, extra_args={"--max-line-length=110"}},
   {
     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
     command = "shellcheck",
     ---@usage arguments to pass to the formatter
     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-    extra_args = { "--severity", "warning" },
+    extra_args = { "--severity", "warning" , "--line-width=110"},
   },
   {
     command = "codespell",

@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = false
-lvim.colorscheme = "onedarker"
+-- lvim.colorscheme = "onedarker"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -47,12 +47,12 @@ lvim.keys.normal_mode["<A-j>"] = false
 lvim.keys.normal_mode["<A-k>"] = false
 lvim.keys.normal_mode["<S-h>"] = ":bprev<cr>"
 lvim.keys.normal_mode["<S-l>"] = ":bnext<cr>"
+-- lvim.keys.normal_mode["<C-t>"] = "<cmd>ToggleTerm<cr>"
+-- lvim.keys.visual_block_mode["<C-t>"] = "<cmd>ToggleTerm<cr>"
 lvim.keys.visual_block_mode["<A-j>"] = false
 lvim.keys.visual_block_mode["<A-k>"] = false
 lvim.keys.visual_block_mode["J"] = false
 lvim.keys.visual_block_mode["K"] = false
-
--- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
   name = "+Trouble",
@@ -68,11 +68,30 @@ lvim.builtin.which_key.mappings["t"] = {
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
+-- lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
-lvim.builtin.nvimtree.setup.view.mappings.list = {{key = '<C-t>', cb=":ToggleTerm<cr>"}}
+lvim.builtin.terminal.open_mapping = "<c-t>"
+--
+
+-- vim.keymap.set('n', '<C-t>', '<Cmd>ToggleTerm<cr>')
+
+local function my_on_attach(bufnr)
+  local api = require('nvim-tree.api')
+
+  local function opts(desc)
+    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  api.config.mappings.default_on_attach(bufnr)
+
+  vim.keymap.del('n', '<C-t>', { buffer = bufnr })
+  vim.keymap.set('n', '<C-t>', '<Cmd>ToggleTerm<cr>', { buffer = bufnr })
+end
+
+lvim.builtin.nvimtree.setup.on_attach = my_on_attach
+
 
 function _G.set_terminal_keymaps()
   local opts = {buffer = 0}
@@ -244,3 +263,4 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
   ]])
+

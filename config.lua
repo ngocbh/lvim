@@ -227,6 +227,7 @@ lvim.builtin.treesitter.indent = { enable = true, disable= {"python"}}
 -- lvim.builtin.treesitter.indent = { enable = true }
 -- lvim.builtin.treesitter.indent = { disable = true}
 -- lvim.builtin.treesitter.yati = {enable = true}
+--
 
 vim.cmd([[
 let g:airline_powerline_fonts = 1
@@ -262,5 +263,21 @@ inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" vmap <D-j> gj
+" vmap <D-k> gk
+" vmap <D-4> g$
+" vmap <D-6> g^
+" vmap <D-0> g^
+" nmap <D-j> gj
+" nmap <D-k> gk
+" nmap <D-4> g$
+" nmap <D-6> g^
+" nmap <D-0> g^
+
+set showbreak=â€¦
   ]])
 
+
+-- settings for wrap lines http://vimcasts.org/episodes/soft-wrapping-text/
+vim.opt.wrap = true
+vim.opt.linebreak = true

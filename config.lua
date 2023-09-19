@@ -64,6 +64,25 @@ lvim.builtin.which_key.mappings["t"] = {
   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordspace Diagnostics" },
 }
 
+
+-- settings for wrap lines http://vimcasts.org/episodes/soft-wrapping-text/
+--
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.showbreak="€¦  "
+
+lvim.keys.normal_mode["j"] = "gj"
+lvim.keys.normal_mode["k"] = "gk"
+lvim.keys.normal_mode["$"] = "g$"
+lvim.keys.normal_mode["^"] = "g^"
+lvim.keys.normal_mode["0"] = "g0"
+lvim.keys.visual_mode["j"] = "gj"
+lvim.keys.visual_mode["k"] = "gk"
+lvim.keys.visual_mode["$"] = "g$"
+lvim.keys.visual_mode["^"] = "g^"
+lvim.keys.visual_mode["0"] = "g0"
+
+
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
@@ -274,10 +293,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " nmap <D-6> g^
 " nmap <D-0> g^
 
-set showbreak=â€¦
   ]])
 
 
--- settings for wrap lines http://vimcasts.org/episodes/soft-wrapping-text/
-vim.opt.wrap = true
-vim.opt.linebreak = true

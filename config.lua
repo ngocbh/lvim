@@ -40,6 +40,15 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 --     ["<C-k>"] = actions.move_selection_previous,
 --   },
 -- }
+--
+--
+-- Copilot
+-- vim.keymap.set('i', '<C-B>', 'copilot#Accept("\\<CR>")', {
+--   expr = true,
+--   replace_keycodes = false
+-- })
+-- vim.g.copilot_no_tab_map = true
+
 
 lvim.keys.insert_mode["<A-j>"] = false
 lvim.keys.insert_mode["<A-k>"] = false
@@ -92,7 +101,7 @@ lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.terminal.open_mapping = "<c-t>"
---
+lvim.builtin.cmp.active = false--
 
 -- vim.keymap.set('n', '<C-t>', '<Cmd>ToggleTerm<cr>')
 
@@ -215,6 +224,7 @@ lvim.plugins = {
   { "lunarvim/colorschemes" },
   { "folke/tokyonight.nvim" },
   { "arcticicestudio/nord-vim" },
+  { "github/copilot.vim" },
   -- { "yioneko/nvim-yati", requires = "nvim-treesitter/nvim-treesitter" },
   { "Vimjas/vim-python-pep8-indent" },
   { "tpope/vim-sleuth"},

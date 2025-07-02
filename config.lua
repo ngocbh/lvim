@@ -160,7 +160,7 @@ lvim.lsp.automatic_servers_installation = false
 
 ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
+-- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "pyright" })
 local opts = {} -- check the lspconfig documentation for a list of all possible options
 require("lvim.lsp.manager").setup("pyright", opts)
 
@@ -171,7 +171,9 @@ vim.tbl_map(function(server)
 end, lvim.lsp.automatic_configuration.skipped_servers)
 
 --- remap copy to system clipboard
-vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
+-- vim.api.nvim_set_keymap("v", "y", '"+y', { noremap = true })
+vim.opt.clipboard = ""
+
 
 -- you can set a custom on_attach function that will be used for all the language servers
 -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
@@ -289,6 +291,7 @@ inoremap <silent><expr> <Tab>
       \ coc#refresh()
 
 inoremap <silent><expr> <c-space> coc#refresh()
+
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
